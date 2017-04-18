@@ -13,15 +13,11 @@
 var firstName = "Thomas";
 
 class Greeter extends React.Component {
+  // this gives us 'this'
   constructor(props) {
     super(props);
     this.onButtonClick = this.onButtonClick.bind(this);
   }
-
-  // handleSubmit(event) {
-  //   alert('A name was submitted: ' + this.input.value);
-  //   event.preventDefault();
-  // }
 
   onButtonClick(e) {
     e.preventDefault();
