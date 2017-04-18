@@ -13,10 +13,18 @@ class Greeter extends React.Component {
 
   onButtonClick(e) {
     e.preventDefault();
-    var name = this.refs.nameFromInput.value;
-    this.setState({
-      name: name
-    });
+
+    var nameRef = this.refs.nameFromInput;
+    var name = nameRef.value;
+
+    // clears the input box
+    nameRef.value = '';
+
+    if (typeof name === "string" && name.length > 0) {
+      this.setState({
+        name: name
+      });
+    }
   }
 
   render() {
