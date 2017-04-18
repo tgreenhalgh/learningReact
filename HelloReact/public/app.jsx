@@ -1,14 +1,3 @@
-// var Greeter = React.createClass({
-//   render: function() {
-//     return (
-//       <div>
-//         <h1>Hello React!</h1>
-//         <p>This is from the component</p>
-//       </div>
-//       );
-//   }
-// });
-
 /* jshint ignore:start */
 var firstName = "Thomas";
 
@@ -16,17 +5,23 @@ class Greeter extends React.Component {
   // this gives us 'this'
   constructor(props) {
     super(props);
+    this.state = {
+      name: props.name
+    };
     this.onButtonClick = this.onButtonClick.bind(this);
   }
 
   onButtonClick(e) {
     e.preventDefault();
     var name = this.refs.nameFromInput.value;
-    alert(name);
+    this.setState({
+      name: name
+    });
   }
 
   render() {
-    var name = this.props.name;
+    // var name = this.props.name;
+    var name = this.state.name;
     var message = this.props.message;
 
     return (
