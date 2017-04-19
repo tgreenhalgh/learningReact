@@ -18,7 +18,8 @@ class GreeterForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: props.name
+      name: props.name,
+      message: props.message
     };
     // this gives us 'this'
     this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -26,20 +27,38 @@ class GreeterForm extends React.Component {
 
   onFormSubmit(e) {
     e.preventDefault();
+    var updates = {};
     var name = this.refs.nameFromInput.value;
+    var message = this.refs.message.value;
 
     if (name.length > 0) {
       this.refs.nameFromInput.value = '';
-      this.props.onNewName(name);
+      updates.name = name;
     }
+
+    if (message.length > 0) {
+      this.refs.message.value = '';
+      updates.message = message;
+    }
+
+    this.props.onNewData(updates);  // calls the function
   }
 
   render() {
     return (
-      <form onSubmit= { this.onFormSubmit }>
-        <input type="text" ref="nameFromInput"/>
-        <button>Set Name</button>
-      </form>
+      <div>
+        <form onSubmit= { this.onFormSubmit }>
+          <div>
+            <input type="text" placeholder="Enter Name" ref="nameFromInput"/>
+          </div>
+          <div>
+            <textarea placeholder="Enter Message" ref="message"></textarea>
+          </div>
+          <div>
+            <button>Submit</button>
+          </div>
+        </form>
+      </div>
     );
   }
 }
@@ -49,21 +68,19 @@ class Greeter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: props.name
+      name: props.name,
+      message: props.message
     };
-    this.handleNewName = this.handleNewName.bind(this);
+    this.handleNewData = this.handleNewData.bind(this);
   }
 
-  handleNewName(name) {
-      this.setState({
-        name: name
-      });
+  handleNewData(updates) {
+      this.setState(updates);
   }
 
   render() {
-    // var name = this.props.name;
     var name = this.state.name;
-    var message = this.props.message;
+    var message = this.state.message;
 
     return (
       // { expression } <-- whatevert inside { } evaluates
@@ -72,11 +89,11 @@ class Greeter extends React.Component {
       // ref is for React to get the form
       <div>
         <GreeterMessage name = { name } message = { message }/>
-        <GreeterForm onNewName = { this.handleNewName }/>
+        <GreeterForm onNewData = { this.handleNewData }/>
       </div>
     ); // when have a parent component handling an event from a child
        // usually call the parent 'handle...' and the child 'on...'
-       // e.g. handleNewName and onNewName
+       // e.g. handleNewData and onNewData
   }
 }
 
@@ -86,7 +103,6 @@ Greeter.defaultProps = {
 };
 
 ReactDOM.render(
-    // <Greeter/>, // tests defaults
     <Greeter/>, // { } is an expression
     document.getElementById('app')
 );
