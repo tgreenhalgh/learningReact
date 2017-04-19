@@ -1,6 +1,28 @@
 /* jshint ignore:start */
 var firstName = "Thomas";
 
+class GreeterMessage extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>H1 tag</h1>
+        <p>Paragraph</p>
+      </div>
+    );
+  }
+}
+
+class GreeterForm extends React.Component {
+  render() {
+    return (
+      <form>
+        <input type="text" ref="nameFromInput"/>
+        <button>Set Name</button>
+      </form>
+    );
+  }
+}
+
 class Greeter extends React.Component {
   // this gives us 'this'
   constructor(props) {
@@ -41,10 +63,14 @@ class Greeter extends React.Component {
         <h1>Hello { name }!</h1>
         <p>{ message + '!!' }</p>
 
+        <GreeterMessage/>
+
         <form onSubmit={ this.onButtonClick }>
           <input type="text" ref="nameFromInput"/>
           <button>Set Name</button>
         </form>
+
+        <GreeterForm/>
       </div>
     );
   }
